@@ -1,4 +1,4 @@
-package com.picsel.app.services.mqtt;
+package com.picsel.app.config;
 
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.reactivestreams.Publisher;
@@ -40,6 +40,8 @@ public class MqttConfiguration {
         converter.setPayloadAsBytes(true);
         adapter.setConverter(converter);
         adapter.setQos(1);
+        adapter.setQuiescentTimeout(1000);
+        adapter.setDisconnectCompletionTimeout(1000);
         return adapter;
     }
 
