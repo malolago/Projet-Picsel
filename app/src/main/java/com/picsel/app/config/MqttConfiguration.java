@@ -2,6 +2,7 @@ package com.picsel.app.config;
 
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.reactivestreams.Publisher;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.config.EnableIntegration;
@@ -16,13 +17,43 @@ import java.util.UUID;
 
 @Configuration
 @EnableIntegration
+@ConfigurationProperties(prefix = "mqtt")
 public class MqttConfiguration {
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    String url;
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    String topic;
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    String clientId = "SpringClient-" + UUID.randomUUID();
 
     @Bean
     public MqttPahoClientFactory mqttClientFactory() {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
         MqttConnectOptions options = new MqttConnectOptions();
-        options.setServerURIs(new String[] { "tcp://broker.mqtt.cool:1883" });
+        options.setServerURIs(new String[] { url });
         // options.setUserName("SpringClient");
         // options.setPassword("SpringClient".toCharArray());
         factory.setConnectionOptions(options);
@@ -32,9 +63,9 @@ public class MqttConfiguration {
     @Bean
     public MqttPahoMessageDrivenChannelAdapter mqttInbound() {
         MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(
-                "SpringClient-" + UUID.randomUUID(),
+                clientId,
                 mqttClientFactory(),
-                "topic");
+                topic);
         adapter.setCompletionTimeout(10000);
         DefaultPahoMessageConverter converter = new DefaultPahoMessageConverter();
         converter.setPayloadAsBytes(true);
