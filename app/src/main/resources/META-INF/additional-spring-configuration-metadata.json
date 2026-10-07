@@ -1,0 +1,14 @@
+{
+    "properties": [
+        {
+            "name": "mqtt.url",
+            "type": "java.lang.String",
+            "description": "URL for mqtt's connexion"
+        },
+        {
+            "name": "mqtt.topic",
+            "type": "java.lang.String",
+            "description": "Topic for mqtt's connexion"
+        }
+    ]
+}
