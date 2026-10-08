@@ -1,5 +1,7 @@
 package com.picsel.app;
 
+import java.util.Date;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ public class AppApplication {
 
 	@GetMapping("/")
 	public Iterable<Measure> get() {
+		repository.save(new Measure(1.0, 1.0, new Date(), "test"));
 		return repository.findAll();
 		// return "Hello, World!";
 	}

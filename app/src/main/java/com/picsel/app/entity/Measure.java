@@ -44,8 +44,30 @@ public class Measure {
     protected Measure() {
     }
 
-    public Measure(Double temperature, Double pressure) {
+    public Measure(Double temperature, Double pressure, Date timestamp, String device) {
         this.temperature = temperature;
         this.pressure = pressure;
+        this.timestamp = timestamp;
+        this.device = device;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setDevice(String device) {
+        this.device = device;
+    }
+
+    public void setTemperature(Double temperature) {
+        this.temperature = temperature;
+    }
+
+    public void setPressure(Double pressure) {
+        this.pressure = pressure;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 }
