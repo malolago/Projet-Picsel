@@ -1,0 +1,15 @@
+services:
+  grafana:
+    image: grafana/grafana-enterprise
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_PLUGINS_PREINSTALL=yesoreyeram-infinity-datasource
+    volumes:
+      - grafana:/var/lib/grafana
+      - ./provisioning:/etc/grafana/provisioning:ro
+
+volumes:
+  grafana:
